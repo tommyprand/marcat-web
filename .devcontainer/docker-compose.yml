@@ -1,0 +1,9 @@
+version: '3'
+services: 
+  app:
+    image: mcr.microsoft.com/vscode/devcontainers/typescript-node
+    volumes: 
+      - ../:/marcat-web
+    ports: 
+      - 3000:3000
+    command: tail -f /dev/null
