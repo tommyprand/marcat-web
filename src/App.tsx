@@ -1,44 +1,31 @@
-import React, { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import React from 'react'
+import { Container, Drawer, Link, Typography } from '@material-ui/core'
+import { initializeApp } from 'firebase/app'
+import { initializeAnalytics } from 'firebase/analytics'
+import { BrowserRouter as Router, Switch, Link as RouterLink, Route} from 'react-router-dom'
+
+import { firebaseConfig } from '../config'
+import { RegisterForm } from './components/auth/RegisterForm'
+
+const app = initializeApp(firebaseConfig)
+initializeAnalytics(app)
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
+    <Router>
+      <Container>
+        <Link component={RouterLink} to="/">Home</Link>
+        <Link component={RouterLink} to="/register">Register</Link>
+      </Container>
+      <Switch>
+        <Route path="/" exact>
+          <Typography variant="h3">Welcome Home</Typography>
+        </Route>
+        <Route path="/register" exact>
+          <RegisterForm/>
+        </Route>
+      </Switch>
+    </Router>
   )
 }
 
